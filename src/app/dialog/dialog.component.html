@@ -1,0 +1,66 @@
+<h1 mat-dialog-title>Add product form</h1>
+<div mat-dialog-content>
+    <form [formGroup]="productForm"
+        (submit)="submitForm()">
+        <mat-form-field appearance="outline">
+            <mat-label>Product Name</mat-label>
+            <mat-hint>simple name</mat-hint>
+            <input formControlName="productName"
+                matInput>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Product Category</mat-label>
+            <mat-select formControlName="category">
+                <mat-option value="fruits">Fruits</mat-option>
+                <mat-option value="vegetables">Vegetables</mat-option>
+                <mat-option value="electronics">Electronics</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div class="my-2 flex flex-col gap-y-4">
+            <label>Product freshness</label>
+            <mat-radio-group aria-label="select an option"
+                class="flex flex-col gap-y-4"
+                formControlName="freshness">
+                <mat-radio-button *ngFor="let fresh of freshness"
+                    [value]="fresh">{{fresh | titlecase}}</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <mat-form-field appearance="outline">
+            <mat-label>Date</mat-label>
+            <input matInput
+                [matDatepicker]="picker"
+                formControlName="date">
+            <mat-datepicker-toggle matSuffix
+                [for]="picker">
+                <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Price</mat-label>
+            <input matInput
+                type="number"
+                placeholder="Price"
+                formControlName="price">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Comment</mat-label>
+            <textarea matInput
+                formControlName="comment"></textarea>
+        </mat-form-field>
+        <div mat-dialog-actions
+            [align]="'end'">
+            <button mat-raised-button
+                color="primary"
+                *ngIf="!editProduct"
+                type="submit">Save</button>
+            <button mat-raised-button
+                color="primary"
+                *ngIf="editProduct"
+                type="submit">update</button>
+            <button mat-raised-button
+                color="warn"
+                mat-dialog-close>Close</button>
+        </div>
+    </form>
+</div>
